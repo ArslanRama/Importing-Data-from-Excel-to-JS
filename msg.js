@@ -1,21 +1,28 @@
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzTQYJcXaCPAhu01rmGA4tOBLnK_xAxdmt-cTuQp5d2W2TtGntT/exec';
 
-let formc = document.forms['html-form-to-google-sheet'];
+// POST DATA to the Excel 
+/* 
+const scriptURL= 'https://script.google.com/macros/s/AKfycbwgll4p9cMsgKqtr3qvcsik2AgxcY6Nq0PANQYBW-Zki6IQZ16p/exec'; */
+
+/* https://script.google.com/macros/s/AKfycbwgll4p9cMsgKqtr3qvcsik2AgxcY6Nq0PANQYBW-Zki6IQZ16p/exec */
+
+const scriptURLC = 'https://script.google.com/macros/s/AKfycbytD8ZInnztP6y_E-p1G8ZQ3KpYMNtNuId4CLVAAdsPH0swtmL4nlQ5eg/exec'
 
 
-formc.addEventListener('submit', e=>{
-   // to disable submit button behavior
-   e.preventDefault();
+const formc = document.forms['html-form-to-google-sheet'];
 
-   document.getElementById('btn').classList.add('loading');
 
-   fetch(scriptURL,{
-    method: 'POST',
-    body: new FormData(formc)
-})
-    .then(res=>{
-        console.log(res);
 
-    })
+formc.addEventListener('submit', e => {
+	// todo disable submit button
+	e.preventDefault();
+	document.getElementById('but').classList.add('loading');
+	fetch(scriptURLC, {
+			method: 'POST',
+			body: new FormData(formc)
+		})
+		.then(res => {
+			console.log(res);
+			// todo enable submit button
+        })
 });

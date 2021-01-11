@@ -3,98 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Google Excel Storage to HTML</title>
+    <!-- Css -->
+  <link href="button.css" rel="stylesheet">
+
+<!-- =================================================================================== -->
     <!-- BS CSS CDN links -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        ​
-    <!-- BS JS CDN Links  -->  ​
+<!-- =================================================================================== -->
+    <!-- BS JS CDN Links  -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        ​
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-            
+    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- JQuery Link -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <!-- CSS Link -->
-    <link rel="stylesheet" href="button.css">
+<!-- =================================================================================== -->
+    <!-- JQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 
 
 </head>
 <body>
+<!-- =================================================================================== -->
+    <!-- FIRST PART : FORM -->
+
     <center><br><br>
 
         <h1>{{Google Sheets Storage}}</h1>
 
-        <p class="small"> {{@Shanks}}</p>
+        <p class="small">{{@Shanks}}</p>
 
-        <!-- Create Form -->
-        <form>
-            Name: <input type="text" name="name"><br><br>
-            Message: <input type="text" name="message"><br><br>
-            Note: <input type="text" name="note"><br><br>
+
+        <form name="html-form-to-google-sheet">
+            Name : <input type= "text" name="name"><br><br>
+            Message : <input type= "text" name="message"><br><br>
+            Note : <input type= "text" name="note"><br><br>
     
-            <button type="submit" id="btn" class="ui inverted green">Send</button>
+            <button type="submit" id="but" class="ui inverted green button">Send</button>
+    
         </form>
+        
 
     </center>
-    <!-- Create Table -->
-    <div class="alper container text-center my-4">
-        <p class="font-weight-bold">The data in the table comes from google spreadsheet</p>
+<!-- Internal JS File -->
+    <script src="msg.js"></script>
+<!-- =================================================================================== -->
+<!-- SECOND PART : TABLE -->
 
-        <a class="btn btn-primary mb-4" href="https://docs.google.com/spreadsheets/d/13MbcETSHrxOyk0pQV-6OkBsVsReGXFUTGkZPeWWha_0/edit#gid=0" role="button" target="_blank">Click here to see the source sheet
-        </a>
+<div class=" alper  container text-center my-4">
 
-        <!-- Table -->
+    <!-- Information -->
+    <p class="font-weight-bold">The data in the table comes from the google spreadsheets</p>
 
-        <table class="table table-bordered table-striped" id="testTable">
-            <!-- Table Column Names -->
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Name</th>
-                    <th>Message</th>
-                    <th>Note</th>
-                </tr>
-            </thead>
-           <!-- Table Body -->
-           <tbody id="aslan">
-               <tr>
-                
-               </tr>
+    <!-- Button -->
+    <a class="btn btn-primary mb-4" href="https://docs.google.com/spreadsheets/d/13MbcETSHrxOyk0pQV-6OkBsVsReGXFUTGkZPeWWha_0/edit#gid=0" role="button" target="_blank">Click the see the source sheet</a>
 
-           </tbody>
-        </table>
 
-    </div>
+    <!-- Table!!! -->
 
-    <table>
+    <table class="table table-bordered table-striped" id="testTable">
+
+        <!-- Table Column Names -->
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Message</th>
+                <th>Note</th>
+
+            </tr>
+        </thead>
+
+        <!-- Table Body -->
+        <tbody id="alper">
+
+ 
+            
+
+        </tbody>
+
+
 
     </table>
 
+
+</div>
+
+<!-- =================================================================================== -->
+
+
     <script>
+/* GET THE DATA FROM EXCEL AND WRITE IT INSIDE THE HTML */
 
-        // Get the data from excel and write it inside html
-        $.getJSON("https://spreadsheets.google.com/feeds/list/13MbcETSHrxOyk0pQV-6OkBsVsReGXFUTGkZPeWWha_0/od6/public/values?alt=json", function(data){
-            console.log(data);
+$.getJSON("https://spreadsheets.google.com/feeds/list/13MbcETSHrxOyk0pQV-6OkBsVsReGXFUTGkZPeWWha_0/od6/public/values?alt=json", function (data) {
 
-            let sheetData = data.feed.entry;
-            let i;
-            for(i=0; i < sheetData.length; i++){
-                let Date = data.feed.entry[i]['gsx$timestamp']['$t'];// date
-                let Name = data.feed.entry[i]['gsx$name']['$t'];// name
-                let Message = data.feed.entry[i]['gsx$message:']['$t'];// message
-                let Note = data.feed.entry[i]['gsx$note:']['$t'];// note
+console.log(data);
 
-                document.getElementById('aslan').innerHTML +=('<tr>' + '<td>' + Date + '<td>'+ '<td>' + Name + '<td>' + '<td>' + Message + '<td>' + '<td>' + Note + '</tr>');
-            }
+  var sheetData = data.feed.entry;
 
-        })
-        
+  var i;
+  for (i = 0; i < sheetData.length; i++) {
+
+  var Date = data.feed.entry[i]['gsx$timestamp']['$t'];
+  var Name = data.feed.entry[i]['gsx$name']['$t'];
+  var Message = data.feed.entry[i]['gsx$message']['$t'];
+  var Note = data.feed.entry[i]['gsx$note']['$t'];
+   
+  document.getElementById('alper').innerHTML += ('<tr>'+'<td>'+Date+'</td>'+'<td>'+Name+'</td>'+'<td>'+Message+'</td>'+'<td>'+Note+'</td>'+'</tr>');
+  }
+});
+
 
     </script>
 
-    <script src="msg.js"></script>
-  
-    
+<!-- =================================================================================== -->
+
+
+
 </body>
 </html>
