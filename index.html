@@ -13,6 +13,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
             
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- JQuery Link -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- CSS Link -->
     <link rel="stylesheet" href="button.css">
 
@@ -25,19 +27,73 @@
 
         <p class="small"> {{@Shanks}}</p>
 
+        <!-- Create Form -->
         <form>
             Name: <input type="text" name="name"><br><br>
             Message: <input type="text" name="message"><br><br>
             Note: <input type="text" name="note"><br><br>
     
-            <button type="submit" id="but" class="ui inverted green">Send</button>
+            <button type="submit" id="btn" class="ui inverted green">Send</button>
         </form>
 
     </center>
+    <!-- Create Table -->
+    <div class="alper container text-center my-4">
+        <p class="font-weight-bold">The data in the table comes from google spreadsheet</p>
+
+        <a class="btn btn-primary mb-4" href="https://docs.google.com/spreadsheets/d/13MbcETSHrxOyk0pQV-6OkBsVsReGXFUTGkZPeWWha_0/edit#gid=0" role="button" target="_blank">Click here to see the source sheet
+        </a>
+
+        <!-- Table -->
+
+        <table class="table table-bordered table-striped" id="testTable">
+            <!-- Table Column Names -->
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Message</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+           <!-- Table Body -->
+           <tbody id="aslan">
+               <tr>
+                
+               </tr>
+
+           </tbody>
+        </table>
+
+    </div>
+
+    <table>
+
+    </table>
 
     <script>
 
+        // Get the data from excel and write it inside html
+        $.getJSON("https://spreadsheets.google.com/feeds/list/13MbcETSHrxOyk0pQV-6OkBsVsReGXFUTGkZPeWWha_0/od6/public/values?alt=json", function(data){
+            console.log(data);
+
+            let sheetData = data.feed.entry;
+            let i;
+            for(i=0; i < sheetData.length; i++){
+                let Date = data.feed.entry[i]['gsx$timestamp']['$t'];// date
+                let Name = data.feed.entry[i]['gsx$name']['$t'];// name
+                let Message = data.feed.entry[i]['gsx$message:']['$t'];// message
+                let Note = data.feed.entry[i]['gsx$note:']['$t'];// note
+
+                document.getElementById('aslan').innerHTML +=('<tr>' + '<td>' + Date + '<td>'+ '<td>' + Name + '<td>' + '<td>' + Message + '<td>' + '<td>' + Note + '</tr>');
+            }
+
+        })
+        
+
     </script>
+
+    <script src="msg.js"></script>
   
     
 </body>
