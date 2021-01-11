@@ -113,16 +113,18 @@ console.log(data);
   var Message = data.feed.entry[i]['gsx$message']['$t'];
   var Note = data.feed.entry[i]['gsx$note']['$t'];
    
-  document.getElementById('alper').innerHTML += ('<tr>'+'<td>'+Date+'</td>'+'<td>'+Name+'</td>'+'<td>'+Message+'</td>'+'<td>'+Note+'</td>'+'</tr>');
+  document.getElementById('alper').innerHTML += 
+  ('<tr>'
+    +'<td>'+Date +'</td>'
+    +'<td>'+Name+'</td>'
+    +'<td>'+Message+'</td>'
+    +'<td>'+Note+'</td>'+
+    '</tr>');
   }
 });
-
-
-    </script>
+   </script>
 
 <!-- =================================================================================== -->
-
-
 
 </body>
 </html>
